@@ -13,5 +13,5 @@ class WebsitescraperItem(scrapy.Item):
      product_name = scrapy.Field()
      product_image_link = scrapy.Field()
      product_rating = scrapy.Field()
-     #  product_price = scrapy.Field()
+
 pass
