@@ -70,4 +70,4 @@ while i < len(column_data[0]):
     i = i + 1
 
 df = pd.DataFrame(dataset, columns = columns)
-df.to_csv("scrapped.tsv", sep = "\t", index = False)
+df.to_csv("scrapped_data.tsv", sep = "\t", index = False)
