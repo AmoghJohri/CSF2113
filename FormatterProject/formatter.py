@@ -86,3 +86,5 @@ while i < len(column_data[0]):
 # saving the data as a tab-seperated file using pandas
 df = pd.DataFrame(dataset, columns = columns)
 df.to_csv("scrapped_data.tsv", sep = "\t", index = False)
+
+print(df.head())
