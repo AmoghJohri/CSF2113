@@ -10,12 +10,14 @@ class WebsiteSpiderSpider(scrapy.Spider):
             product = WebsitescraperItem()
 
             product_name = response.css('.a-color-base.a-text-normal').css('::text').extract()
-            product_price = response.css('.a-price-whole::text').extract()
-            product_image = response.css('.s-image-fixed-height .s-image::attr(src)').extract()
+            product_image_link = response.css('.s-image-fixed-height .s-image::attr(src)').extract()
+            product_rating = response.css('.a-icon-alt::text').extract()
+            # product_price = response.css('.a-price-whole::text').extract()
 
             product['product_name'] =  product_name
-            product['product_price'] =  product_price
-            product['product_image'] =  product_image
+            product['product_image_link'] =  product_image_link
+            product['product_rating'] = product_rating
+            # product['product_price'] =  product_price
 
             yield product
 
