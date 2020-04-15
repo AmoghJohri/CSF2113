@@ -16,7 +16,7 @@ class WebsiteSpiderSpider(scrapy.Spider):
 
             product['product_name'] =  product_name
             product['product_image_link'] =  product_image_link
-            product['product_rating'] = product_rating
+            product['product_rating'] = product_rating[4:]
             # product['product_price'] =  product_price
 
             yield product
