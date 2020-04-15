@@ -9,6 +9,7 @@ https://www.amazon.in/s?k=earphones+with+mic&i=electronics&rh=p_72%3A1318476031&
 The website contains information about the latest earphones with ratings above 4 stars.
 
 The ScraperProject contains the code to scrape product name, image links and ratings of the various earphones displayed.
+Additionally, the scraper also makes use of USER BOTS to bypass restrictions on website that prevent them from scraping multiple times. As a result, if due to an unfortunate event/ ineffective selection of USER BOT , you do not find output in the file. Just delete the created output file and rerun the code without any changes until you find an output. 
 
 Instructions to run the Scraper:
 
