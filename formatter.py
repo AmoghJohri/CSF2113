@@ -1,6 +1,12 @@
+import sys 
 import pandas as pd 
 
-file = open("dummy.json", "r")
+if len(sys.argv) == 1:
+    print("Need Filename!")
+    sys.exit(-1)
+else:
+    path = sys.argv[1]
+file = open(path, "r")
 
 tag = 0
 for each in file:
@@ -34,6 +40,7 @@ while i < len(data):
             dataset.append(aux)
     i = i + 1
 
+
 column_data = [[] for i in range(len(columns))]
 
 tag = 0
@@ -54,9 +61,13 @@ for each in dataset:
 dataset = [[] for i in range(len(column_data[0]))]
 i = 0
 while i < len(column_data[0]):
-    dataset[i] = [column_data[0][i], column_data[1][i], column_data[2][i]]
+    j = 0
+    aux = []
+    while j < len(columns):
+        aux.append(column_data[j][i])
+        j = j + 1
+    dataset[i] = aux
     i = i + 1
 
 df = pd.DataFrame(dataset, columns = columns)
-
 df.to_csv("scrapped.tsv", sep = "\t", index = False)
