@@ -192,3 +192,14 @@ def crack_pass_using_dic(dic, inp):
 
 
 
+print("Strong password of length 10: ",generate_strong_password(10))
+print("\n\n")
+print("Wear password of length 6: ", generate_weak_password(6))
+print("\n\n")
+print("Generating a dictionary with 5 strong passwords and 8 weak password (all of length 8)...")
+d = generate_password_dict(5, 8)
+print("\n\n")
+analyze_dic(d)
+print("\n\n")
+print("All the passwords in the dictionary with their corresponding md5 hash-value: ")
+print_dict(d)
