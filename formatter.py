@@ -50,10 +50,11 @@ for each in dataset:
         i = i + 1
     tag = tag + 1
 
+
 dataset = [[] for i in range(len(column_data[0]))]
 i = 0
 while i < len(column_data[0]):
-    dataset[i] = [column_data[0][i], column_data[1][i]]
+    dataset[i] = [column_data[0][i], column_data[1][i], column_data[2][i]]
     i = i + 1
 
 df = pd.DataFrame(dataset, columns = columns)
