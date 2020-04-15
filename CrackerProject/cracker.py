@@ -3,16 +3,16 @@ import hashlib
 import numpy as np
 
 
-# the password generator generates 'n' number of random passwords. The passwords can be of two types, strong or weak.
-# strong passwords are made up of a combination of at least one capital letter, small letter, number and a special character.
-# weak passwords do not cater to all the above conditions.
-# all passwords are at least 6 characters in length and at max 20 characters in length.
+""" The passwords can be of two types, strong or weak.
+Strong passwords are made up of a combination of at least one capital letter, small letter, number and a special character.
+Weak passwords do not cater to all the above conditions. """
 
 # 33 - 47 and 58 - 64 and 91 - 96 and 123 - 126: special characters
 # 48 - 57 : numbers 
 # 65 - 90 : capital letters
 # 97 - 122 : small letters
 
+# declaring the various types of allowed characters in the password. If a password contains any other characters it is deemed invalid
 special = [i for i in range(33,48)]
 special.extend([i for i in range(58,65)])
 special.extend([i for i in range(91,97)])
@@ -22,26 +22,32 @@ numbers = [i for i in range(48,58)]
 capital = [i for i in range(65,91)]
 small = [i for i in range(97,123)]
 
-
+# gives a random numric character
 def get_random_number():
     return chr(numbers[np.random.randint(low = 0, high = len(numbers), size = 1)[0]])
-
+# gives a random small-alphabet character
 def get_random_small():
     return chr(small[np.random.randint(low = 0, high = len(small), size = 1)[0]])
-
+# gives a random capital-alphabet character
 def get_random_capital():
     return chr(capital[np.random.randint(low = 0, high = len(capital), size = 1)[0]])
-
+# gives a random special character
 def get_random_special():
     return chr(special[np.random.randint(low = 0, high = len(special), size = 1)[0]])
 
-
+# function to print a dictionary in 'key : value' format
 def print_dict(d):
     for each in d.keys():
         print(each, end = ": ")
         print(d[each])
 
+# the following function generates a random strong password (the default length of the generated password is 8)
 def generate_strong_password(size = 8):
+
+    if size < 4:
+        print("Error! A strong password needs to be at least 4 characters in length")
+        return "-1"
+
     num = get_random_number()
     small = get_random_small()
     cap = get_random_capital()
@@ -57,7 +63,7 @@ def generate_strong_password(size = 8):
     pwd = ''.join(random.sample(pwd, len(pwd)))
     return pwd
 
-    
+# the following function generates a random weak password (the default length of the generated password is 8)
 def generate_weak_password(size = 8):
     rand =  np.random.randint(low = 0, high = 4, size = 3)
     pwd = ""
@@ -73,7 +79,8 @@ def generate_weak_password(size = 8):
             pwd = pwd + get_random_special()
     return pwd
 
-def check_pass_word_type(password): # returns 0 for a weak password and returns 1 for a strong password
+# returns 0 for a weak password and returns 1 for a strong password and returns -1 if the password is invalid
+def check_pass_word_type(password): 
     arr = [0 for i in range(4)]
     i = 0
     while i < len(password):
@@ -86,13 +93,15 @@ def check_pass_word_type(password): # returns 0 for a weak password and returns 
         elif ord(password[i]) in small:
             arr[3] = 1
         else :
-            return -1 # invalid password
+            return -1 
         i = i + 1
     for each in arr :
         if each == 0:
             return 0
     return 1
 
+# takes in the number of strong passwords and weak passwords to be generated and generates a dictionary
+# the dictionary contains the passwords as its key value and it's md5 hash as its value
 def generate_password_dict(num_strong = 10, num_weak = 10):
     passwords = {}
     
@@ -111,6 +120,7 @@ def generate_password_dict(num_strong = 10, num_weak = 10):
 
     return passwords
 
+# takes a dictionary as the input and stores the passwords in the dictionary in two seperate files. The seperation is based on the basis of password type (strong and weak)
 def save_dictionary(dic):
     f = open("weak_passwords.txt", "w")
     for each in dic.keys():
@@ -126,8 +136,14 @@ def save_dictionary(dic):
     f.close() 
     return 1
 
+# takes in path name as the input and generates a dictionary with all the passwords present in the path name
 def load_dictionary(path):
-    f = open(path, "r")
+    try :
+        f = open(path, "r")
+    except :
+        print("Invalid path name!")
+        quit()
+
     d = {}
     for each in f :
         each = each[:-1]
@@ -136,6 +152,7 @@ def load_dictionary(path):
     f.close()
     return d
 
+# takes in a dictionary and a password and adds the password to the dictionary
 def add_password_to_dict(dic, password):
     if check_pass_word_type(password) == -1:
         print("Invalid password!")
@@ -146,6 +163,7 @@ def add_password_to_dict(dic, password):
     dic[password] = hashlib.md5(password.encode("utf-8")).hexdigest()
     return 1
 
+# takes in a dictionary as the input and gives information regarding the passwords stored in the dictionary
 def analyze_dic(dic):
     strong_pass = 0
     weak_pass = 0
@@ -164,6 +182,8 @@ def analyze_dic(dic):
     print(invalid_pass, " invalid passwords")
     return 1
 
+# takes a dictionary of passwords and a md5 hash as the input and attempts to crack the password.
+# if successful, it returns the password from the dictionary 
 def crack_pass_using_dic(dic, inp):
     for each in dic.keys():
         if dic[each] == inp:
@@ -171,26 +191,4 @@ def crack_pass_using_dic(dic, inp):
     return (0, "No match found")
 
 
-
-strong_pass = generate_strong_password()
-weak_pass = generate_weak_password()
-print(strong_pass)
-print(weak_pass)
-
-print(check_pass_word_type(strong_pass))
-print(check_pass_word_type(weak_pass))
-
-d = generate_password_dict()
-print_dict(d)
-print(save_dictionary(d))
-
-b = load_dictionary("strong_passwords.txt")
-print_dict(b)
-
-new_d = {}
-print(add_password_to_dict(new_d, "ThisIs_AStrongPassw0rd"))
-print_dict(new_d)
-
-analyze_dic(new_d)
-analyze_dic(d)
 
