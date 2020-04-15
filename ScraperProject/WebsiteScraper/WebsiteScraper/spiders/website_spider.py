@@ -4,7 +4,7 @@ from ..items import WebsitescraperItem
 
 class WebsiteSpiderSpider(scrapy.Spider):
     name = 'website_spider'
-    start_urls = ['https://www.amazon.in/s?k=earphones+with+mic&i=electronics&crid=2N58U5A6XCGT2&sprefix=ear%2Celectronics%2C355&ref=nb_sb_ss_i_2_3']
+    start_urls = ['https://www.amazon.in/s?k=earphones+with+mic&i=electronics&rh=p_72%3A1318476031&dc&crid=2N58U5A6XCGT2&qid=1586958396&rnid=1318475031&sprefix=ear%2Celectronics%2C355&ref=sr_nr_p_72_1']
 
     def parse(self, response):
             product = WebsitescraperItem()
