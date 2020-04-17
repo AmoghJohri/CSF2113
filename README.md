@@ -19,3 +19,12 @@ This command will create an output file named items.json in your directory which
 Please Note: You need to remove the items.json file each time before rerunning the code.
 
 This data in the json file is then given as an input to the formatter to be converted into a csv file.
+
+Instructions to run the Formatter:
+
+1. Go to FormatterProject folder.
+2. Run the command - python formatter.py items.json 
+This command creates a tsv file named scrapped_data.tsv which will contain the extracted information arranged according to the various attributes.
+
+Instructions to run the Cracker:
+-> These have been provided in the code itself in the form of comments.
